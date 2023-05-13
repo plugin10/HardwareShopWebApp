@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    public class Item
+    public class Tool
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

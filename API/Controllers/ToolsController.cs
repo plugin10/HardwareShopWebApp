@@ -5,25 +5,25 @@ using Persistence;
 
 namespace API.Controllers
 {
-    public class ItemsController : BaseApiController
+    public class ToolsController : BaseApiController
     {
         private readonly DataContext _context;
 
-        public ItemsController(DataContext context)
+        public ToolsController(DataContext context)
         {
             _context = context;
         }
 
         [HttpGet] // api/items
-        public async Task<ActionResult<List<Item>>> GetItems()
+        public async Task<ActionResult<List<Tool>>> GetItems()
         {
-            return await _context.Items.ToListAsync();
+            return await _context.Tools.ToListAsync();
         }
 
         [HttpGet("{id}")] // api/items/{id}
-        public async Task<ActionResult<Item>> GetItem(Guid id)
+        public async Task<ActionResult<Tool>> GetItem(Guid id)
         {
-            return await _context.Items.FindAsync(id);
+            return await _context.Tools.FindAsync(id);
         }
     }
 }

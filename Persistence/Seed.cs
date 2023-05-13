@@ -10,11 +10,11 @@ namespace Persistence
     {
         public static async Task SeedData(DataContext context)
         {
-            if(context.Items.Any()) return;
+            if(context.Tools.Any()) return;
 
-            var items = new List<Item>
+            var tools = new List<Tool>
             {
-                new Item
+                new Tool
                 {
                     Name = "Test name",
                     Description = "Test description",
@@ -22,7 +22,7 @@ namespace Persistence
                     PictureUrl = "test.jpg",
                     Type = "Test type"
                 },
-                new Item
+                new Tool
                 {
                     Name = "Test name 2",
                     Description = "Test description 2",
@@ -30,7 +30,7 @@ namespace Persistence
                     PictureUrl = "test2.jpg",
                     Type = "Test type 2"
                 },
-                new Item
+                new Tool
                 {
                     Name = "Test name 3",
                     Description = "Test description 3",
@@ -40,7 +40,7 @@ namespace Persistence
                 }
             };
 
-            await context.Items.AddRangeAsync(items);
+            await context.Tools.AddRangeAsync(tools);
             await context.SaveChangesAsync();
         }
     }

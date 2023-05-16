@@ -1,3 +1,4 @@
+using API.Extensions;
 using Application.Core;
 using Application.Tools;
 using MediatR;
@@ -9,23 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<DataContext>(opt =>
-{
-    opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
-});
-builder.Services.AddCors(opt =>
-{
-    opt.AddPolicy("CrosPolicy", policy =>
-    {
-        policy.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:3000"); //allow any method, any header, and only from localhost:3000
-    });
-});
 
-builder.Services.AddMediatR(typeof(List.Handler).Assembly); //add mediatr assembly to services
-
-builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly); //add automapper assembly to services
+builder.Services.AddApplicationServices(builder.Configuration); //add application services
 
 var app = builder.Build();
 

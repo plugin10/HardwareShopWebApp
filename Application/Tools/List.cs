@@ -23,7 +23,7 @@ namespace Application.Tools
             
             public async Task<List<Tool>> Handle(Query request, CancellationToken cancellationToken)
             {
-                return await _context.Tools.ToListAsync(cancellationToken);
+                return await _context.Tools.ToListAsync(cancellationToken); // Return all tools
             }
         }
     }

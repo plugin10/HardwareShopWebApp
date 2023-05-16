@@ -1,3 +1,4 @@
+using Application.Core;
 using Application.Tools;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +9,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DataContext>(opt =>
@@ -19,11 +19,13 @@ builder.Services.AddCors(opt =>
 {
     opt.AddPolicy("CrosPolicy", policy =>
     {
-        policy.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:3000");
+        policy.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:3000"); //allow any method, any header, and only from localhost:3000
     });
 });
 
 builder.Services.AddMediatR(typeof(List.Handler).Assembly); //add mediatr assembly to services
+
+builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly); //add automapper assembly to services
 
 var app = builder.Build();
 

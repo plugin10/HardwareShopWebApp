@@ -9,23 +9,36 @@ namespace API.Controllers
 {
     public class ToolsController : BaseApiController
     {
-        private readonly IMediator _mediator;
-
-        public ToolsController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
 
         [HttpGet] // api/items
-        public async Task<ActionResult<List<Tool>>> GetItems()
+        public async Task<ActionResult<List<Tool>>> GetTools()
         {
-            return await _mediator.Send(new List.Query());
+            return await Mediator.Send(new List.Query());
         }
 
         [HttpGet("{id}")] // api/items/{id}
-        public async Task<ActionResult<Tool>> GetItem(Guid id)
+        public async Task<ActionResult<Tool>> GetTool(Guid id)
         {
-            return await _mediator.Send(new Details.Query {Id = id});
+            return await Mediator.Send(new Details.Query {Id = id});
+        }
+
+        [HttpPost] // api/items
+        public async Task<IActionResult> CreateTool(Tool tool)
+        {
+            return Ok(await Mediator.Send(new Create.Command {Tool = tool}));
+        }
+
+        [HttpPut("{id}")] // api/items/{id}
+        public async Task<IActionResult> EditTool(Guid id, Tool tool)
+        {
+            tool.Id = id;
+            return Ok(await Mediator.Send(new Edit.Command {Tool = tool}));
+        }
+
+        [HttpDelete("{id}")] // api/items/{id}
+        public async Task<IActionResult> DeleteTool(Guid id)
+        {
+            return Ok(await Mediator.Send(new Delete.Command {Id = id}));
         }
     }
 }

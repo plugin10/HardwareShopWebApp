@@ -26,7 +26,7 @@ namespace Application.Tools
             
             public async Task<Tool> Handle(Query request, CancellationToken cancellationToken)
             {
-                return await _context.Tools.FindAsync(request.Id);
+                return await _context.Tools.FindAsync(request.Id); // Find the tool with the given id
             }
         }
     }

@@ -15,6 +15,7 @@ interface Props {
   closeForm: () => void;
   createOrEdit: (tool: Tool) => void;
   deleteTool: (id: string) => void;
+  submitting: boolean;
 }
 
 export default function ToolDashboard({
@@ -27,6 +28,7 @@ export default function ToolDashboard({
   closeForm,
   createOrEdit,
   deleteTool,
+  submitting,
 }: Props) {
   return (
     <Grid>
@@ -35,6 +37,7 @@ export default function ToolDashboard({
           tools={tools}
           selectTool={selectTool}
           deleteTool={deleteTool}
+          submitting={submitting}
         ></ToolList>
       </Grid.Column>
       <Grid.Column width="6">
@@ -50,6 +53,7 @@ export default function ToolDashboard({
             closeForm={closeForm}
             tool={selectedTool}
             createOrEdit={createOrEdit}
+            submitting={submitting}
           ></ToolForn>
         )}
       </Grid.Column>

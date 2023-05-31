@@ -1,4 +1,4 @@
-import React from "react";
+import React, { SyntheticEvent, useState } from "react";
 import { Tool } from "../../../app/models/tool";
 import { Button, Item, Label, Segment } from "semantic-ui-react";
 
@@ -6,9 +6,22 @@ interface Props {
   tools: Tool[];
   selectTool: (id: string) => void;
   deleteTool: (id: string) => void;
+  submitting: boolean;
 }
 
-export default function ToolListItem({ tools, selectTool, deleteTool }: Props) {
+export default function ToolListItem({
+  tools,
+  selectTool,
+  deleteTool,
+  submitting,
+}: Props) {
+  const [target, setTarget] = useState("");
+
+  function handleToolDelete(e: SyntheticEvent<HTMLButtonElement>, id: string) {
+    setTarget(e.currentTarget.name);
+    deleteTool(id);
+  }
+
   return (
     <Segment>
       <Item.Group divided>
@@ -29,7 +42,9 @@ export default function ToolListItem({ tools, selectTool, deleteTool }: Props) {
                   color="blue"
                 />
                 <Button
-                  onClick={() => deleteTool(tool.id)}
+                  name={tool.id}
+                  loading={submitting && target === tool.id}
+                  onClick={(e) => handleToolDelete(e, tool.id)}
                   floated="right"
                   content="Delete"
                   color="red"

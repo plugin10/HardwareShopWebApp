@@ -6,12 +6,14 @@ interface Props {
   tool: Tool | undefined;
   closeForm: () => void;
   createOrEdit: (tool: Tool) => void;
+  submitting: boolean;
 }
 
 export default function ToolForn({
   tool: selectedTool,
   closeForm,
   createOrEdit,
+  submitting,
 }: Props) {
   const initialState = selectedTool ?? {
     id: "",
@@ -68,7 +70,13 @@ export default function ToolForn({
           name="pictureUrl"
           onChange={handleInputChange}
         />
-        <Button floated="right" positive type="submit" content="Submit" />
+        <Button
+          loading={submitting}
+          floated="right"
+          positive
+          type="submit"
+          content="Submit"
+        />
         <Button
           onClick={closeForm}
           floated="left"

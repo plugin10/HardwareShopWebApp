@@ -14,5 +14,6 @@ namespace Persistence
         }
 
         public DbSet<Tool> Tools { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

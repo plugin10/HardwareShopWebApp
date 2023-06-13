@@ -10,7 +10,7 @@ namespace Persistence
     {
         public static async Task SeedData(DataContext context)
         {
-            if(context.Tools.Any()) return;
+            if(context.Tools.Any() && context.Users.Any()) return;
 
             var tools = new List<Tool>
             {
@@ -40,6 +40,16 @@ namespace Persistence
                 }
             };
 
+            var users = new List<User>
+            {
+                new User
+                {
+                    Username = "Admin",
+                    Password = "Admin"
+                }
+            };
+
+            await context.Users.AddRangeAsync(users);
             await context.Tools.AddRangeAsync(tools);
             await context.SaveChangesAsync();
         }
